@@ -1,0 +1,12 @@
+spring:
+  main:
+    web-application-type: NONE # We don't require a webserver.
+
+github:
+  user: #NotTheRealUser
+  organisation: #NotTheRealOrganisation
+  token: NotTheRealToken
+  tag: prod
+
+slack:
+  webhookUrl: https://hooks.slack.com/services/NotTheRealWebhookUrl
