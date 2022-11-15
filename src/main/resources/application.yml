@@ -5,8 +5,8 @@ spring:
 github:
   user: #NotTheRealUser
   organisation: #NotTheRealOrganisation
-  token: NotTheRealToken
+  token: #NotTheRealToken
   tag: prod
 
 slack:
-  webhookUrl: https://hooks.slack.com/services/NotTheRealWebhookUrl
+  webhookUrl: #https://hooks.slack.com/services/NotTheRealWebhookUrl
