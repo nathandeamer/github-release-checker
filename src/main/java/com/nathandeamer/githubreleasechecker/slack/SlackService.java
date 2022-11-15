@@ -21,17 +21,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class SlackService {
 
-    @Value("${slack.webhookUrl}")
-    private String webhookUrl;
+    private final String webhookUrl;
+    private final String tag;
+    private final Slack slack;
 
-    @Value("${github.tag}")
-    private String tag;
+    public SlackService(@Value("${slack.webhookUrl}") String webhookUrl,
+                        @Value("${github.tag}") String tag,
+                        Slack slack) {
+        this.webhookUrl = webhookUrl;
+        this.tag = tag;
+        this.slack = slack;
+    }
 
     public void send(List<CompareResult> githubDiffs) throws IOException {
-        Slack slack = Slack.getInstance();
         List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(HeaderBlock.builder().text(PlainTextObject.builder().text("Github Release Checker").build()).build());
         blocks.add(DividerBlock.builder().build());

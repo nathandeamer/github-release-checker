@@ -23,5 +23,4 @@ Scopes: `repo:status`
 `SLACK_WEBHOOKURL`
 
 ## TODO:
-(x) Tests
 (x) Build and push to dockerhub

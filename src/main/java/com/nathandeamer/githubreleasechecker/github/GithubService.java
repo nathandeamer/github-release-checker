@@ -1,12 +1,12 @@
 package com.nathandeamer.githubreleasechecker.github;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.kohsuke.github.GHCompare;
 import org.kohsuke.github.GHFileNotFoundException;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
-import org.kohsuke.github.GitHubBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,21 +29,26 @@ public class GithubService {
     public GithubService(@Value("${github.organisation}") String organisation,
                          @Value("${github.user}") String user,
                          @Value("${github.tag}") String tag,
-                         @Value("${github.token}") String token) throws IOException {
+                         GitHub gitHub) {
         this.organisation = organisation;
         this.user = user;
         this.tag = tag;
-        this.gitHub = new GitHubBuilder().withOAuthToken(token).build();
+        this.gitHub = gitHub;
     }
 
-    public List<CompareResult> calculateGitDiffs() throws IOException {
-        Map<String, GHRepository> allRepos;
-        if (Strings.isNotEmpty(organisation)) {
-            allRepos = gitHub.getOrganization(organisation).getRepositories();
-        } else {
-            allRepos = gitHub.getUser(user).getRepositories();
+    public List<CompareResult> calculateGitDiffs() {
+        try {
+            Map<String, GHRepository> allRepos;
+            if (Strings.isNotEmpty(organisation)) {
+                allRepos = gitHub.getOrganization(organisation).getRepositories();
+            } else {
+                allRepos = gitHub.getUser(user).getRepositories();
+            }
+            return calculateGitDiffs(allRepos);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
-        return calculateGitDiffs(allRepos);
     }
 
     private List<CompareResult> calculateGitDiffs(Map<String, GHRepository> allRepos) {
