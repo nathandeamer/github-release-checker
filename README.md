@@ -22,5 +22,10 @@ Scopes: `repo:status`
 `GITHUB_TAG` (if you want to override from prod)
 `SLACK_WEBHOOKURL`
 
-## TODO:
-(x) Build and push to dockerhub
+## Build & Run 
+1. `docker build -t github-release-checker .`
+2. `docker run --env GITHUB_ORGANISATION=x --env GITHUB_TOKEN=x --env SLACK_WEBHOOKURL=x --rm github-release-checker`
+
+
+### TODO:
+- Build and push to dockerhub
