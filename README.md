@@ -10,6 +10,7 @@ Send a notification to slack counting the number of commits the default branch (
 ![Incoming Webhook](IncomingWebhook.png)
 
 
+
 2. Generate a new [Github Personal Access Token](https://github.com/settings/tokens)  
 Note: `Github Release Checker`  
 Expiration: `No Expiration`  
@@ -27,8 +28,10 @@ Scopes: `repo:status`
 2. `docker push  nathandeamer/github-release-checker:latest`
 
 ## Run
-2. `docker run --env GITHUB_ORGANISATION=x --env GITHUB_TOKEN=x --env SLACK_WEBHOOKURL=x --rm nathandeamer/github-release-checker`
+1. `docker run --env GITHUB_ORGANISATION=x --env GITHUB_TOKEN=x --env SLACK_WEBHOOKURL=x --rm nathandeamer/github-release-checker`
 
+## Example
+![Incoming Webhook](example.png)
 
 ### TODO:
 - Build and push to dockerhub
